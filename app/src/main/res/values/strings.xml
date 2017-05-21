@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Browse</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="url">URL</string>
+    <string name="enter">Enter</string>
+    <string name="web">https://www.google.com</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="no">No Text Entered</string>
+    <string name="textview">TextView</string>
+    <string name="clear">Clear Cookies</string>
+</resources>
