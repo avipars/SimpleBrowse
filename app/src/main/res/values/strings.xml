@@ -14,7 +14,10 @@
     <string name="rate_app">Rate App</string>
     <string name="open_intent">Open in Simple Browse</string>
 
-    <string name="app_name">Browse</string>
+    <string name="edit">Enter your new address</string>
+    <string name="url_a">http://</string>
+
+    <string name="app_name">Simple Browse</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -32,4 +35,7 @@
     <string name="rate">Rate App</string>
     <string name="shared">Shared through Simple Browse</string>
     <string name="link">Share Link</string>
+    <string name="submit">Submit</string>
+    <string name="change">Change URL</string>
+    <string name="enterURl">Enter a new URL</string>
 </resources>

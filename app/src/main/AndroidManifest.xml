@@ -25,13 +25,15 @@
         <activity android:name=".intentHandler"
             android:theme="@style/NoActionBar"
             android:parentActivityName=".MainActivity">
-        <intent-filter  android:label="@string/open_intent">
+        <intent-filter  android:label="@string/open_intent"
+            android:parentActivityName=".MainActivity">
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="http"/>
             <data android:scheme="https" />
         </intent-filter>
+
         </activity>
     </application>
 
