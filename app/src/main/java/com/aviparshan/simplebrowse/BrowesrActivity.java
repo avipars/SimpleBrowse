@@ -1,7 +1,6 @@
 package com.aviparshan.simplebrowse;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -101,7 +100,7 @@ public class BrowesrActivity extends AppCompatActivity {
 ////            }
 //        });
 //        openURL(currentUrl);
-
+//
 
     }
 
@@ -124,17 +123,17 @@ public class BrowesrActivity extends AppCompatActivity {
             cookieSyncMngr.sync();
         }
     }
-
-    /**
-     * Opens the URL in a browser
-     */
-    private void openURL(String URL) {
-        Intent in = getIntent();
-        String tv1 = in.getExtras().getString("url");
-        myWebView.loadUrl(tv1);
-        setTitle(currentUrl);
-        myWebView.requestFocus();
-    }
+//
+//    /**
+//     * Opens the URL in a browser
+//     */
+//    private void openURL(String URL) {
+//        Intent in = getIntent();
+//        String tv1 = in.getExtras().getString("url");
+//        myWebView.loadUrl(tv1);
+//        setTitle(currentUrl);
+//        myWebView.requestFocus();
+//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation, menu);

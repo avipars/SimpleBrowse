@@ -1,4 +1,19 @@
 <resources>
+    <!-- About -->
+    <string name="about">About Me</string>
+    <string name="about_body"><![CDATA[
+         <b>Avi Parshan</b> created this app, Check his website and social media:<br/>
+        <a href=\'http://aviparshan.com\'>Website</a>&nbsp;&nbsp;
+        <a href=\'https://twitter.com/aviinfinity\'>Twitter</a>&nbsp;&nbsp;
+        <a href=\'https://www.youtube.com/channel/UCYzocrbgFApPAGhq7PAw9Gw\'>YouTube</a>&nbsp;&nbsp;
+        <a href=\'https://www.linkedin.com/in/aviparshan\'>LinkedIn</a>&nbsp;&nbsp;
+        <a href=\'https://www.facebook.com/appdeomcracy\'>Facebook</a>
+    ]]></string>
+    <string name="dismiss">Dismiss</string>
+    <string name="feedback">Contact Me</string>
+    <string name="rate_app">Rate App</string>
+    <string name="open_intent">Open in Simple Browse</string>
+
     <string name="app_name">Browse</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -10,4 +25,11 @@
     <string name="no">No Text Entered</string>
     <string name="textview">TextView</string>
     <string name="clear">Clear Cookies</string>
+    <string name="welcome">Welcome to Browse, we are working on a lot of new ideas, so please stick with us while we work through them. We would really appreciate your feedback, and if you can check out our other apps as well!</string>
+
+    <string name="other_apps">Other Apps</string>
+    <string name="rate_error">Google Play Isn\'t Installed</string>
+    <string name="rate">Rate App</string>
+    <string name="shared">Shared through Simple Browse</string>
+    <string name="link">Share Link</string>
 </resources>
