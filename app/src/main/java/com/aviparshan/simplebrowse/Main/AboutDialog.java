@@ -1,4 +1,4 @@
-package com.aviparshan.simplebrowse;
+package com.aviparshan.simplebrowse.Main;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.aviparshan.simplebrowse.R;
 
 public class AboutDialog extends DialogFragment {
 

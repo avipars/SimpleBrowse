@@ -17,14 +17,15 @@ android {
         applicationId "com.aviparshan.simplebrowse"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.0.1.1"
+        versionCode 8
+        versionName "1.1.1.1"
         vectorDrawables.useSupportLibrary = true
         resConfig "en"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -38,11 +39,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:customtabs:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
-    compile 'com.startapp:inapp-sdk:3.6.2'
+    compile 'com.startapp:inapp-sdk:3.6.3'
+
 
 
 }

@@ -3,16 +3,18 @@
     package="com.aviparshan.simplebrowse"
     android:installLocation="auto">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/fusion"
         android:label="@string/app_name"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/white">
         <activity
-            android:name=".MainActivity"
+            android:name=".Main.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +24,16 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".intentHandler"
+        <activity android:name=".Browse.BrowserActivity"
             android:theme="@style/NoActionBar"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Main.MainActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"/>
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="true" />
+
+        <activity android:name=".Browse.intentHandler"
+            android:theme="@style/NoActionBar"
+            android:parentActivityName=".Main.MainActivity">
         <intent-filter  android:label="@string/open_intent"
             android:parentActivityName=".MainActivity">
             <action android:name="android.intent.action.VIEW" />
@@ -35,6 +44,23 @@
         </intent-filter>
 
         </activity>
+        <activity android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
+            android:theme="@android:style/Theme" />
+
+        <activity android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
+            android:theme="@android:style/Theme.Translucent"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <activity android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
+            android:theme="@android:style/Theme"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
+        <service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
+        <receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
