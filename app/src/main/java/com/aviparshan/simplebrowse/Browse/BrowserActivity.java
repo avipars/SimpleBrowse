@@ -16,7 +16,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +25,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.aviparshan.simplebrowse.Main.AboutDialog;
+import com.aviparshan.simplebrowse.Main.MainActivity;
 import com.aviparshan.simplebrowse.R;
 
 import static android.webkit.WebView.HitTestResult.SRC_ANCHOR_TYPE;
@@ -64,7 +65,6 @@ public class BrowserActivity extends AppCompatActivity {
         contain = (CoordinatorLayout) findViewById(R.id.main_content);
         myWebView = (WebView) findViewById(webview);
         progress = (ProgressBar) findViewById(R.id.progressBar);
-
 
         myWebView.getSettings().setUseWideViewPort(false);
         myWebView.getSettings().setJavaScriptEnabled(true);
@@ -101,7 +101,6 @@ public class BrowserActivity extends AppCompatActivity {
         //noinspection deprecation - This method is deprecated but let's call it in case WebView implementations still obey it.
         myWebView.getSettings().setSavePassword(false);
         myWebView.setLongClickable(true);
-
         myWebView.setFocusable(true);
         myWebView.setFocusableInTouchMode(true);
         myWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -114,7 +113,7 @@ public class BrowserActivity extends AppCompatActivity {
                                           Message resultMsg) {
                 WebView.HitTestResult result = view.getHitTestResult();
                 String data = result.getExtra();
-                Log.d("DATA", "" + data);
+               // Log.d("DATA", "" + data);
                  view.loadUrl(data);
 
                 WebView newWebView = new WebView(view.getContext());
@@ -169,7 +168,21 @@ public class BrowserActivity extends AppCompatActivity {
                                            setTitle(currentUrl);
                                        }
 
-                                       @SuppressWarnings("deprecation")
+                                    @SuppressWarnings("deprecation")
+                                    @Override
+                                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                                        // Handle the error
+                                        //Toast.makeText(BrowserActivity.this, "Error: " + errorCode +  description + failingUrl, Toast.LENGTH_SHORT).show();
+                                        errorDialog(description,failingUrl);                                    }
+
+                                    @TargetApi(android.os.Build.VERSION_CODES.M)
+                                    @Override
+                                    public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
+                                        // Redirect to deprecated method, so you can use it in all SDK versions
+                                        onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
+                                    }
+
+                                        @SuppressWarnings("deprecation")
                                        @Override
                                        public boolean shouldOverrideUrlLoading(WebView wv, String url) {
                                            if (url.startsWith("tel:")) {
@@ -221,10 +234,6 @@ public class BrowserActivity extends AppCompatActivity {
                                        }
                                    });
 
-
-
-
-
         mToolbar.setOnClickListener(view -> showInputDialog(currentUrl));
 
         myWebView.setOnLongClickListener(v -> {
@@ -267,7 +276,6 @@ public class BrowserActivity extends AppCompatActivity {
     @Override //Maintains state on orientation change
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
-
     }
 
     @Override
@@ -276,7 +284,6 @@ public class BrowserActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.click, menu);
         //menu.setHeaderTitle(mURL);
-
     }
 
     @Override
@@ -284,7 +291,6 @@ public class BrowserActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
             case R.id.copy:
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -299,6 +305,7 @@ public class BrowserActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
         /**
          * Opens the URL in a browser
@@ -347,13 +354,10 @@ public class BrowserActivity extends AppCompatActivity {
     public void destroyWebView() {
         // Make sure you remove the WebView from its parent view before doing anything.
         contain.removeAllViews();
-
         myWebView.clearHistory();
-
         // NOTE: clears RAM cache, if you pass true, it will also clear the disk cache.
         // Probably not a great idea to pass true if you have other WebViews still alive.
         myWebView.clearCache(true);
-
         // Loading a blank page is optional, but will ensure that the WebView isn't doing anything when you destroy it.
         myWebView.loadUrl("about:blank");
 
@@ -372,9 +376,9 @@ public class BrowserActivity extends AppCompatActivity {
 
         // Null out the reference so that you don't end up re-using it.
         myWebView = null;
-
         Toast.makeText(this, R.string.history, Toast.LENGTH_SHORT).show();
-
+        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(i);
     }
 
     public void showInputDialog(String cURL) {
@@ -385,6 +389,23 @@ public class BrowserActivity extends AppCompatActivity {
                         InputType.TYPE_CLASS_TEXT
                                 | InputType.TYPE_TEXT_VARIATION_URI
                                 )
+                .positiveText(R.string.submit)
+                .input("http://", cURL, false, (dialog, input) -> {
+                    String url = input.toString();
+                    openURL(ErrorCheck(url));
+
+                }).show();
+
+    }
+
+    public void errorDialog(String error, String cURL) {
+        new MaterialDialog.Builder(this)
+                .title(error)
+                .content(R.string.diffUrl)
+                .inputType(
+                        InputType.TYPE_CLASS_TEXT
+                                | InputType.TYPE_TEXT_VARIATION_URI
+                )
                 .positiveText(R.string.submit)
                 .input("http://", cURL, false, (dialog, input) -> {
                     String url = input.toString();
@@ -410,6 +431,15 @@ public class BrowserActivity extends AppCompatActivity {
 
     }
 
+    private boolean isChecked = false;
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem checkable = menu.findItem(R.id.desktop);
+        checkable.setChecked(isChecked);
+        return true;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation, menu);
@@ -428,13 +458,19 @@ public class BrowserActivity extends AppCompatActivity {
             case R.id.cookies:
                 clearCookies(BrowserActivity.this);
                 return true;
+
+            case R.id.share:
+                shareText(getString(R.string.shared_by), currentUrl);
+                return true;
+            case R.id.desktop:
+                isChecked = !item.isChecked();
+                item.setChecked(isChecked);
+               // myWebView.getSettings().setUserAgentString("Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0");
+                setDesktopMode(isChecked);
             case R.id.reload:
                 if (myWebView != null) {
                     myWebView.reload();
                 }
-                return true;
-            case R.id.share:
-                shareText(getString(R.string.shared_by), currentUrl);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -448,6 +484,24 @@ public class BrowserActivity extends AppCompatActivity {
         txtIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
         startActivity(Intent.createChooser(txtIntent ,"Share Link"));
     }
+
+    public void setDesktopMode(final boolean enabled) {
+
+        final String newUserAgent;
+        if (enabled) {
+            newUserAgent = myWebView.getSettings().getUserAgentString().replace("Mobile", "eliboM").replace("Android", "diordnA");
+        }
+        else {
+            newUserAgent = myWebView.getSettings().getUserAgentString().replace("eliboM", "Mobile").replace("diordnA", "Android");
+        }
+
+        myWebView.getSettings().setUserAgentString(newUserAgent);
+        myWebView.getSettings().setUseWideViewPort(enabled);
+        myWebView.getSettings().setLoadWithOverviewMode(enabled);
+        myWebView.getSettings().setSupportZoom(enabled);
+        myWebView.getSettings().setBuiltInZoomControls(enabled);
+    }
+
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(toolbar);

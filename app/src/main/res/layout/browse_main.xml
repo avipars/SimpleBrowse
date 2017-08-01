@@ -37,10 +37,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ProgressBar
+                android:paddingTop="5dp"
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
 
         <WebView
             android:id="@+id/webview"

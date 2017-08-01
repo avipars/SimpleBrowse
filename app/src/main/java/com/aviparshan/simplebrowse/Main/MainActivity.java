@@ -19,6 +19,8 @@ import static com.aviparshan.simplebrowse.R.id.editText;
 public class MainActivity extends AppCompatActivity {
     private EditText etLocation;
 
+    String search = "https://www.google.co.il/search?q=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
        // 205097787
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         StartAppAd.disableSplash();
-
 
         Button btn = (Button) findViewById(R.id.button);
         etLocation = (EditText) findViewById(editText);
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //                    txt.setText(etLocation.getText().toString());
 //                    startActivity(i);
                 sendURL();
+
 
             }
         });

@@ -17,5 +17,9 @@
         android:id="@+id/reload"
         app:showAsAction = "never"
         android:title="@string/reload" />
-
+    <item
+        android:id="@+id/desktop"
+        app:showAsAction = "never"
+        android:checkable="true"
+        android:title="@string/request" />
 </menu>

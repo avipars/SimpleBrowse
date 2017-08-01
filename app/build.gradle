@@ -17,8 +17,8 @@ android {
         applicationId "com.aviparshan.simplebrowse"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 8
-        versionName "1.1.1.1"
+        versionCode 9
+        versionName "1.1.1.2"
         vectorDrawables.useSupportLibrary = true
         resConfig "en"
     }

@@ -46,4 +46,6 @@
     <string name="cookies">Cookies have been cleared</string>
     <string name="history">History and Cache Have Been Destroyed</string>
     <string name="fusion_browser">Fusion Browser</string>
+    <string name="request">Request Desktop Site</string>
+    <string name="diffUrl">Please try again with a different URL</string>
 </resources>
