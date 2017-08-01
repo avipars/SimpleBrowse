@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.EditText;
 
 //Class to handle incoming intents from browsers
 public class intentHandler extends Activity {
@@ -28,8 +29,26 @@ public class intentHandler extends Activity {
 
     private void sendURL(String url) {
         Intent i = new Intent(intentHandler.this, BrowserActivity.class);
-        i.putExtra("link", url); //etLocation.getText().toString()
+        i.putExtra("link", ErrorCheck(url)); //etLocation.getText().toString()
         startActivity(i);
+    }
+
+    private String ErrorCheck(String etText){
+
+        String tv2;
+
+        if (!etText.startsWith("http://") && !etText.startsWith("https://")) {
+            tv2 = "http://" + etText;
+        }
+        else {
+            tv2 = etText;
+        }
+        return tv2;
+
+    }
+
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() == 0;
     }
 
 }

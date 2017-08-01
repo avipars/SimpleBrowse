@@ -56,6 +56,9 @@ public class BrowserActivity extends AppCompatActivity {
     String currentUrl = "https://www.google.com";
     static String mURL;
 
+    String search = "https://www.google.co.il/search?q=";
+    String requestURL = String.format("https://www.google.com/?a=%s&b=%s", Uri.encode("foo bar"), Uri.encode("100% fubar'd"));
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -311,8 +314,8 @@ public class BrowserActivity extends AppCompatActivity {
          * Opens the URL in a browser
          */
     private void openURL(String URL) {
-        String checked = ErrorCheck(URL);
-        myWebView.loadUrl(checked);
+        //String checked = ErrorCheck(URL);
+        myWebView.loadUrl(URL);
         setTitle(currentUrl);
         myWebView.requestFocus();
     }
@@ -521,9 +524,6 @@ public class BrowserActivity extends AppCompatActivity {
             super.onBackPressed();
             clearCookies(this);
             destroyWebView();
-
-
-
         }
     }
 }

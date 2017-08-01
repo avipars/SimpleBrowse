@@ -1,6 +1,7 @@
 package com.aviparshan.simplebrowse.Main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etLocation;
 
     String search = "https://www.google.co.il/search?q=";
+    String requestURL = String.format("https://www.google.com/?a=%s&b=%s", Uri.encode("foo bar"), Uri.encode("100% fubar'd"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //                    txt.setText(etLocation.getText().toString());
 //                    startActivity(i);
                 sendURL();
+
 
 
             }
@@ -94,9 +97,8 @@ public class MainActivity extends AppCompatActivity {
     private void sendURL()
     {
         Intent i = new Intent(MainActivity.this, BrowserActivity.class);
-                    i.putExtra("link", etLocation.getText().toString()); //etLocation.getText().toString()
+                    i.putExtra("link", ErrorCheck(etLocation.getText().toString())); //etLocation.getText().toString()
                     //txt.setText(etLocation.getText().toString());
-
         startActivity(i);
 
     }
@@ -108,10 +110,14 @@ public class MainActivity extends AppCompatActivity {
     private String ErrorCheck(String etText){
 
         String tv2;
+        boolean missingH;
+
         if (!etText.startsWith("http://") && !etText.startsWith("https://")) {
+            missingH =  true;
             tv2 = "http://" + etText;
         }
         else {
+            missingH = false;
             tv2 = etText;
         }
         return tv2;
